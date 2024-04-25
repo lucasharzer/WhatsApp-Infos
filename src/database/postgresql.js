@@ -1,5 +1,5 @@
-require("dotenv").config();
 const { Client } = require("pg");
+require("dotenv").config();
 
 
 class ManagePostgreSQL {

@@ -1,5 +1,5 @@
-const { format } = require("date-fns");
 const ManagePostgreSQL = require("../../database/postgresql");
+const ManageDate = require("../validation/date");
 
 
 exports.verify_contact = async(
@@ -7,7 +7,8 @@ exports.verify_contact = async(
 ) => {
     let status_primeira = 0;
     console.log("Verificando cliente...")
-    const data = format(new Date(), "yyyy/MM/dd HH:mm:ss");
+    const manageDate = new ManageDate();
+    const data = manageDate.generateDate();
 
     const postgre = new ManagePostgreSQL();
     await postgre.connect();

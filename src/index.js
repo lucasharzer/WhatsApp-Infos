@@ -1,7 +1,7 @@
-const venom = require("venom-bot"); 
 const { verify_contact } = require("./services/information/contact");
-const { get_type_query } = require("./services/validation/type");
 const { get_response } = require("./services/information/message");
+const { get_type_query } = require("./services/validation/type");
+const venom = require("venom-bot"); 
 
 
 venom

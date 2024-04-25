@@ -1,10 +1,10 @@
+const { format_value } = require("../validation/value");
 const ManageMySQL = require("../../database/mysqldb");
 const ManageDate = require("../validation/date");
-const { format_value } = require("../validation/value");
 
 
 exports.get_response = async(tipo, processo_completo, n_precatorio, primeira) => {
-    const data = new ManageDate();
+    const manageDate = new ManageDate();
     const mysql = new ManageMySQL();
     await mysql.getConnection();
     await mysql.connect();
@@ -30,7 +30,7 @@ exports.get_response = async(tipo, processo_completo, n_precatorio, primeira) =>
                     try {
                         infos = await mysql.getProcesso(processo.replace(/[-.]/g, ""));
                         // - Formatar algumas informações
-                        let dataProtocolo = data.convertDate(infos.DataProtocolo, "data e hora");
+                        let dataProtocolo = manageDate.convertDate(infos.DataProtocolo, "data e hora");
                         let requisitado = format_value(infos.Requisitado);
                         let principalBruto = format_value(infos.PrincipalBruto);
                         let principalLiquido = format_value(infos.PrincipalLiquido);
@@ -56,9 +56,9 @@ exports.get_response = async(tipo, processo_completo, n_precatorio, primeira) =>
                     infos = await mysql.getPrecatorio(processo.replace(/[-.]/g, ""), precatorio);
                     // - Formatar algumas informações
                     let arquivo = infos.NomeArquivo.charAt(0).toUpperCase() + infos.NomeArquivo.slice(1);
-                    let dataNascimento = data.convertDate(infos.DataNascimento, "data");
-                    let dataOficio = data.convertDate(infos.dataOficio, "data");
-                    let dataBase = data.convertDate(infos.dataBase, "data");
+                    let dataNascimento = manageDate.convertDate(infos.DataNascimento, "data");
+                    let dataOficio = manageDate.convertDate(infos.dataOficio, "data");
+                    let dataBase = manageDate.convertDate(infos.dataBase, "data");
                     let requisitado = format_value(infos.Requisitado);
                     let principalBruto = format_value(infos.PrincipalBruto);
                     let principalLiquido = format_value(infos.PrincipalLiquido);
