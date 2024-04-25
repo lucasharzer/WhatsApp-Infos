@@ -23,9 +23,9 @@ class ManageMySQL {
 
     async getProcesso(processo) {
         const resultado = await this.connection.query(
-            `SELECT NroProcessoDepre, Natureza, DataProtocolo, Devedora, Ano, 
-            Requisitado, PrincipalBruto, Vara, Assunto, Foro, AdvogadoPrincipal 
-            FROM Precatorios WHERE NroAutos = ? AND (FlgStatus != ? AND FlgStatus != ?)`,
+            `SELECT NroProcessoDepre, Natureza, DataProtocolo, Devedora, Ano, Requisitado, PrincipalBruto, 
+            PrincipalLiquido, JurosMoratorio, Vara, Assunto, Foro, AdvogadoPrincipal FROM Precatorios WHERE 
+            REPLACE(REPLACE(NroAutos, "-", ""), ".", "") = ? AND (FlgStatus != ? AND FlgStatus != ?)`,
             [processo.toString(), 3, 99]
         );
 
@@ -34,7 +34,7 @@ class ManageMySQL {
 
     async getPrecatorio(processo, precatorio) {
         const resultado = await this.connection.query(
-            "SELECT NomeArquivo, Documento, TipoDocumento, DataNascimento, NumeroDepre, Ordem, Requisitado, PrincipalBruto, NomeRequisitante, dataOficio, `dataBase`, Ano, flgApagar FROM PrecatorioDocumentos WHERE PrecatorioId IN (SELECT Id FROM Precatorios WHERE NroAutos = ? AND FlgStatus != ? AND FlgStatus != ?) AND LOWER(NomeArquivo) = ?",
+            "SELECT pd.NomeArquivo, pd.Documento, pd.TipoDocumento, pd.DataNascimento, pd.NumeroDepre, pd.Ordem, pd.Requisitado, pd.PrincipalBruto, pd.PrincipalLiquido, pd.JurosMoratorio, pd.NomeRequisitante, pd.dataOficio, pd.`dataBase`, pd.Ano, pd.flgApagar, ps.Nome AS StatusApagar FROM PrecatorioDocumentos pd LEFT JOIN Precatorios p ON pd.PrecatorioId = p.Id LEFT JOIN PrecatorioDocumentosStatus ps ON pd.flgApagar = ps.CodStatus WHERE REPLACE(REPLACE(p.NroAutos, '-', ''), '.', '') = ? AND p.FlgStatus != ? AND p.FlgStatus != ? AND LOWER(pd.NomeArquivo) = ?",
             [processo, 3, 99, precatorio]
         );
 
@@ -44,8 +44,8 @@ class ManageMySQL {
     async getPrecatorios(processo) {
         const resultado = await this.connection.query(
             `SELECT TRIM(SUBSTRING_INDEX(NomeArquivo, '-', -1)) AS Precatorio FROM PrecatorioDocumentos WHERE 
-            PrecatorioId IN (SELECT Id FROM Precatorios WHERE NroAutos = ? AND FlgStatus != ? AND 
-            FlgStatus != ?) AND LOWER(NomeArquivo) LIKE ? ORDER BY NomeArquivo`,
+            PrecatorioId IN (SELECT Id FROM Precatorios WHERE REPLACE(REPLACE(NroAutos, "-", ""), ".", "") = ? 
+            AND FlgStatus != ? AND FlgStatus != ?) AND LOWER(NomeArquivo) LIKE ? ORDER BY NomeArquivo`,
             [processo, 3, 99, "precatório%"]
         )
 

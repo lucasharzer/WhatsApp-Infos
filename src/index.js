@@ -1,7 +1,7 @@
 const venom = require("venom-bot"); 
-const { verify_contact } = require("./services/contact");
-const { get_type_query } = require("./services/type");
-const { get_response } = require("./services/message");
+const { verify_contact } = require("./services/information/contact");
+const { get_type_query } = require("./services/validation/type");
+const { get_response } = require("./services/information/message");
 
 
 venom
@@ -54,9 +54,9 @@ function start(client) {
             console.log("Enviando mensagem...")
             let mensagem = await get_response(tipo, contato.lastProcess, texto, contato.status_primeira);
             if (tipo == 3) {
-                client.sendText(idcliente, mensagem);
+                await client.sendText(idcliente, mensagem);
             }else {
-                client.reply(idcliente, mensagem, idmsg);
+                await client.reply(idcliente, mensagem, idmsg);
             }
         }else {
             console.log("\noutra mensagem");

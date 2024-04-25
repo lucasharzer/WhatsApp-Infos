@@ -1,5 +1,5 @@
 const { format } = require("date-fns");
-const ManagePostgreSQL = require("../database/postgresql");
+const ManagePostgreSQL = require("../../database/postgresql");
 
 
 exports.verify_contact = async(
