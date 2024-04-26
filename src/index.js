@@ -6,7 +6,7 @@ const venom = require("venom-bot");
 
 venom
     .create({
-        session: "session-infos",
+        session: "session-infos"
     })
     .then((client) => start(client))
     .catch((erro) => {
@@ -54,9 +54,21 @@ function start(client) {
             console.log("Enviando mensagem...")
             let mensagem = await get_response(tipo, contato.lastProcess, texto, contato.status_primeira);
             if (tipo == 3) {
-                await client.sendText(idcliente, mensagem);
+                client
+                    .sendText(idcliente, mensagem)
+                    .then((result) => {
+                        console.log("Respondido");
+                    }).catch((error) => {
+                        console.error(error);
+                    });
             }else {
-                await client.reply(idcliente, mensagem, idmsg);
+                client
+                    .reply(idcliente, mensagem, idmsg)
+                    .then((result) => {
+                        console.log("Respondido");
+                    }).catch((error) => {
+                        console.error(error);
+                    });
             }
         }else {
             console.log("\noutra mensagem");
