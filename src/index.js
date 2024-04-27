@@ -4,6 +4,7 @@ const { get_type_query } = require("./services/validation/type");
 const venom = require("venom-bot"); 
 
 
+// Iniciar Chat do WhatsApp
 venom
     .create({
         session: "session-infos"
@@ -16,7 +17,8 @@ venom
   
 function start(client) {
     client.onMessage(async(message) => {
-        if (message.sender.id == "5511963262552@c.us" && message.isGroupMsg === false) {
+        const permitidos = ["5511989961444@c.us", "5511963262552@c.us", "5511965857914@c.us"]; 
+        if (permitidos.includes(message.sender.id) && message.isGroupMsg === false) { 
             // Dados da mensagem
             let idcliente = message.sender.id;
             let idmsg = message.id;
@@ -42,21 +44,27 @@ function start(client) {
             }
             // Mapear tipo da resposta
             let tipo = await get_type_query(texto);
+            // Mensagem de espera que antecede a principal
+            if (tipo.caso != 3) {
+                client.sendText(idcliente, `Processando informações do ${tipo.consulta}...`)
+            }
             // Verificar contato
             let ultprocesso = "";
-            if (tipo == 1) {
+            if (tipo.caso == 1) {
                 ultprocesso = texto;
             }
             const contato = await verify_contact(
-                telefone, nome, status, grupo, idmsg, idcliente, ultprocesso, tipo
+                telefone, nome, status, grupo, idmsg, idcliente, ultprocesso, tipo.caso
             );
             // Mapear resposta
             console.log("Enviando mensagem...")
-            let mensagem = await get_response(tipo, contato.lastProcess, texto, contato.status_primeira);
-            if (tipo == 3) {
+            let mensagem = await get_response(
+                tipo.caso, contato.lastProcess, texto, contato.status_primeira, nome
+            );
+            if (tipo.caso == 3) {
                 client
                     .sendText(idcliente, mensagem)
-                    .then((result) => {
+                    .then(() => {
                         console.log("Respondido");
                     }).catch((error) => {
                         console.error(error);
@@ -64,7 +72,7 @@ function start(client) {
             }else {
                 client
                     .reply(idcliente, mensagem, idmsg)
-                    .then((result) => {
+                    .then(() => {
                         console.log("Respondido");
                     }).catch((error) => {
                         console.error(error);
@@ -72,6 +80,8 @@ function start(client) {
             }
         }else {
             console.log("\noutra mensagem");
+            console.log(message.sender.id);
+            console.log(message.body);
         }
     });
 }

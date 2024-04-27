@@ -1,9 +1,14 @@
+# Pacotes do node js
 node_modules
 
+# Tokens da sessão do WhatsApp
 tokens
 
+# Arquivo detalhado dos pacotes instalados
 package-lock.json
 
+# Arquivo de variáveis de ambiente
 .env
 
+# Todos os arquivos de texto
 *.txt

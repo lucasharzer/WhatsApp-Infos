@@ -3,7 +3,7 @@ const ManageMySQL = require("../../database/mysqldb");
 const ManageDate = require("../validation/date");
 
 
-exports.get_response = async(tipo, processo_completo, n_precatorio, primeira) => {
+exports.get_response = async(tipo, processo_completo, n_precatorio, primeira, nome) => {
     const manageDate = new ManageDate();
     const mysql = new ManageMySQL();
     await mysql.getConnection();
@@ -72,9 +72,9 @@ exports.get_response = async(tipo, processo_completo, n_precatorio, primeira) =>
             case 3:
                 // Ajuda
                 if (primeira == 1) {
-                    mensagem = "Olá, seja bem-vindo ao chat de atendimento via WhatsApp. ";
+                    mensagem = `Olá ${nome}, seja bem-vindo ao chat de atendimento via WhatsApp.\n\n`;
                 }
-                mensagem += "Para utilizar o serviço de consulta de processos do TJSP você pode:\n\n• Digitar o número do processo e obter informações do mesmo\n• Digitar o número do precatório e obter informações do mesmo vinculado ao último processo digitado\n\nObs: Será necessário consultar o processo antes do precatório.";
+                mensagem += "Para utilizar o serviço de consulta de processos do TJSP você pode:\n\n• Digitar o número do processo e obter informações do mesmo (Padrão de processo: XXXXXXX-XX.XXXX.8.26.XXXX)\n• Digitar o número do precatório e obter informações do mesmo vinculado ao último processo digitado (Padrão de precatório: XXXXX)\n\nObs: Será necessário consultar o processo antes do precatório.";
                 break;
         }
     }
