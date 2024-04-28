@@ -39,7 +39,7 @@ exports.get_response = async(tipo, processo_completo, n_precatorio, primeira, no
                         mensagem = `Informações do processo ${processo}:\n\n• Processo Depre: ${infos.NroProcessoDepre}\n• Natureza: ${infos.Natureza}\n• Data Protocolo: ${dataProtocolo}\n• Devedora: ${infos.Devedora}\n• Ano: ${infos.Ano}\n• Requisitado: ${requisitado}\n• Principal Bruto: ${principalBruto}\n• Principal Líquido: ${principalLiquido}\n• Juros Moratórios: ${jurosMoratorios}\n• Vara: ${infos.Vara}\n• Assunto: ${infos.Assunto}\n• Foro: ${infos.Foro}\n• Advogado Principal: ${infos.AdvogadoPrincipal}\n`;
                         let precatorios = await mysql.getPrecatorios(processo.replace(/[-.]/g, ""));
                         if (precatorios.length == 0) {
-                            mensagem += "Não há precatórios";
+                            mensagem += "\nNão há precatórios";
                         }else {
                             mensagem += "\n• Precatórios: " + precatorios.map(p => p.Precatorio).join(", ");
                         }
@@ -70,9 +70,14 @@ exports.get_response = async(tipo, processo_completo, n_precatorio, primeira, no
                 }
                 break;
             case 3:
-                // Ajuda
+                // Outro (Mensagem de ajuda)
                 if (primeira == 1) {
-                    mensagem = `Olá ${nome}, seja bem-vindo ao chat de atendimento via WhatsApp.\n\n`;
+                    if (nome.toString().trim() != ".") {
+                        mensagem = `Olá ${nome}, `;
+                    }else {
+                        mensagem = "Olá, ";
+                    }
+                    mensagem += `seja bem-vindo ao chat de atendimento via WhatsApp.\n\n`;
                 }
                 mensagem += "Para utilizar o serviço de consulta de processos do TJSP você pode:\n\n• Digitar o número do processo e obter informações do mesmo (Padrão de processo: XXXXXXX-XX.XXXX.8.26.XXXX)\n• Digitar o número do precatório e obter informações do mesmo vinculado ao último processo digitado (Padrão de precatório: XXXXX)\n\nObs: Será necessário consultar o processo antes do precatório.";
                 break;

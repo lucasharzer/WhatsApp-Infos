@@ -15,14 +15,9 @@ exports.verify_contact = async(
     await postgre.createTable();
 
     // Inserir ou atualizar o contato
-    if (await postgre.selectOne(telefone)) {
-        await postgre.updateOne(nome, status, grupo, data, idmsg, telefone);
-    }else {
-        status_primeira = 1;
-        await postgre.insertOne(
-            nome, telefone, idcliente, status, grupo, data, data, idmsg
-        );
-    }
+    status_primeira = await postgre.saveRegister(
+        nome, telefone, idcliente, status, grupo, data, data, idmsg
+    );
 
     // Atualizar último processo solicitado
     let lastProcess;

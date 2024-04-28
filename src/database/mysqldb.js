@@ -23,9 +23,12 @@ class ManageMySQL {
 
     async getProcesso(processo) {
         const resultado = await this.connection.query(
-            `SELECT NroProcessoDepre, Natureza, DataProtocolo, Devedora, Ano, Requisitado, PrincipalBruto, 
-            PrincipalLiquido, JurosMoratorio, Vara, Assunto, Foro, AdvogadoPrincipal FROM Precatorios WHERE 
-            REPLACE(REPLACE(NroAutos, "-", ""), ".", "") = ? AND (FlgStatus != ? AND FlgStatus != ?)`,
+            `SELECT CASE WHEN LENGTH(NroProcessoDepre) = 0 THEN "Não informado" ELSE NroProcessoDepre END AS NroProcessoDepre, 
+            CASE WHEN LENGTH(Natureza) = 0 THEN "Não informado" ELSE Natureza END AS Natureza, DataProtocolo, 
+            CASE WHEN LENGTH(Devedora) = 0 THEN "Não informado" ELSE Devedora END AS Devedora, Ano, Requisitado, PrincipalBruto, 
+            PrincipalLiquido, JurosMoratorio, Vara, CASE WHEN LENGTH(Assunto) = 0 THEN "Não informado" ELSE Assunto END AS Assunto, 
+            CASE WHEN LENGTH(Foro) = 0 THEN "Não informado" ELSE Foro END AS Foro, CASE WHEN LENGTH(AdvogadoPrincipal) = 0 THEN "Não informado" ELSE AdvogadoPrincipal END AS AdvogadoPrincipal 
+            FROM Precatorios WHERE REPLACE(REPLACE(NroAutos, "-", ""), ".", "") = ? AND (FlgStatus != ? AND FlgStatus != ?) ORDER BY DataUltimaAtualizacao DESC`,
             [processo.toString(), 3, 99]
         );
 
@@ -34,7 +37,7 @@ class ManageMySQL {
 
     async getPrecatorio(processo, precatorio) {
         const resultado = await this.connection.query(
-            "SELECT pd.NomeArquivo, pd.Documento, pd.TipoDocumento, pd.DataNascimento, pd.NumeroDepre, pd.Ordem, pd.Requisitado, pd.PrincipalBruto, pd.PrincipalLiquido, pd.JurosMoratorio, pd.NomeRequisitante, pd.dataOficio, pd.`dataBase`, pd.Ano, pd.flgApagar, ps.Nome AS StatusApagar FROM PrecatorioDocumentos pd LEFT JOIN Precatorios p ON pd.PrecatorioId = p.Id LEFT JOIN PrecatorioDocumentosStatus ps ON pd.flgApagar = ps.CodStatus WHERE REPLACE(REPLACE(p.NroAutos, '-', ''), '.', '') = ? AND p.FlgStatus != ? AND p.FlgStatus != ? AND LOWER(pd.NomeArquivo) = ?",
+            "SELECT pd.NomeArquivo, CASE WHEN LENGTH(pd.Documento) = 0 THEN 'Não informado' ELSE pd.Documento END AS Documento, CASE WHEN LENGTH(pd.TipoDocumento) = 0 THEN 'Não informado' ELSE pd.TipoDocumento END AS TipoDocumento, pd.DataNascimento, CASE WHEN LENGTH(pd.NumeroDepre) = 0 THEN 'Não informado' ELSE pd.NumeroDepre END AS NumeroDepre, CASE WHEN LENGTH(pd.Ordem) = 0 THEN 'Não informado' ELSE pd.Ordem END AS Ordem, pd.Requisitado, pd.PrincipalBruto, pd.PrincipalLiquido, pd.JurosMoratorio, CASE WHEN LENGTH(pd.NomeRequisitante) = 0 THEN 'Não informado' ELSE pd.NomeRequisitante END AS NomeRequisitante, pd.dataOficio, pd.`dataBase`, pd.Ano, pd.flgApagar, ps.Nome AS StatusApagar FROM PrecatorioDocumentos pd LEFT JOIN Precatorios p ON pd.PrecatorioId = p.Id LEFT JOIN PrecatorioDocumentosStatus ps ON pd.flgApagar = ps.CodStatus WHERE REPLACE(REPLACE(p.NroAutos, '-', ''), '.', '') = ? AND p.FlgStatus != ? AND p.FlgStatus != ? AND LOWER(pd.NomeArquivo) = ? ORDER BY pd.DataUltimaAtualizacao DESC",
             [processo, 3, 99, precatorio]
         );
 
@@ -45,7 +48,8 @@ class ManageMySQL {
         const resultado = await this.connection.query(
             `SELECT TRIM(SUBSTRING_INDEX(NomeArquivo, '-', -1)) AS Precatorio FROM PrecatorioDocumentos WHERE 
             PrecatorioId IN (SELECT Id FROM Precatorios WHERE REPLACE(REPLACE(NroAutos, "-", ""), ".", "") = ? 
-            AND FlgStatus != ? AND FlgStatus != ?) AND LOWER(NomeArquivo) LIKE ? ORDER BY NomeArquivo`,
+            AND FlgStatus != ? AND FlgStatus != ?) AND LOWER(NomeArquivo) LIKE ? GROUP BY NomeArquivo ORDER 
+            BY NomeArquivo`,
             [processo, 3, 99, "precatório%"]
         )
 

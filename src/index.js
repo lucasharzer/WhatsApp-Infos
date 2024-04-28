@@ -14,17 +14,18 @@ venom
         console.log(erro);
     });
 
-  
+
+// Serviço de atendimento do Chat
 function start(client) {
     client.onMessage(async(message) => {
-        const permitidos = ["5511989961444@c.us", "5511963262552@c.us", "5511965857914@c.us"]; 
+        const permitidos = ["5511963262552@c.us"]; 
         if (permitidos.includes(message.sender.id) && message.isGroupMsg === false) { 
             // Dados da mensagem
             let idcliente = message.sender.id;
             let idmsg = message.id;
             let nome = message.notifyName;
             let telefone = idcliente.replace("@c.us", "");
-            let texto = message.body.trim();
+            let texto = message.body.toString().trim();
             let status;
             if (message.isOnline){
                 status = "online";
@@ -42,12 +43,14 @@ function start(client) {
             }else {
                 grupo = "";
             }
+            // Obs: Também é possível ver o tipo da mensagem (chat, image, video, sticker...): message.type
             // Mapear tipo da resposta
             let tipo = await get_type_query(texto);
             // Mensagem de espera que antecede a principal
             if (tipo.caso != 3) {
                 client.sendText(idcliente, `Processando informações do ${tipo.consulta}...`)
             }
+            client.startTyping(idcliente);
             // Verificar contato
             let ultprocesso = "";
             if (tipo.caso == 1) {

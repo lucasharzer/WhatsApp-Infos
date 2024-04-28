@@ -23,9 +23,9 @@ class ManagePostgreSQL {
             (
                 Nome VARCHAR(100),
                 Telefone VARCHAR(50) NOT NULL,
-                IdCliente VARCHAR(100) NOT NULL,
+                IdCliente VARCHAR(100) NOT NULL UNIQUE,
                 Status VARCHAR(10),
-                Grupo VARCHAR(20),
+                Grupo VARCHAR(200),
                 CriadoEm TIMESTAMP,
                 AlteradoEm TIMESTAMP,
                 IdMensagem VARCHAR(100) NOT NULL,
@@ -76,6 +76,20 @@ class ManagePostgreSQL {
         }else {
             return false;
         }
+    }
+
+    async saveRegister(
+        nome, telefone, idcliente, status, grupo, criadoem, alteradoem, idmensagem
+    ) {
+        let inserir = 0;
+        if (await this.selectOne(telefone)) {
+            await this.updateOne(nome, status, grupo, alteradoem, idmensagem, telefone);
+        }else {
+            await this.insertOne(nome, telefone, idcliente, status, grupo, criadoem, alteradoem, idmensagem);
+            inserir = 1;
+        }
+
+        return inserir;
     }
 
     async selectAll() {
