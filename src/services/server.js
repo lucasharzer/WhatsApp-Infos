@@ -10,7 +10,7 @@ const port = process.env.SERVER_PORT;
 app.get("/", async(req, res) => {
     try {
         // Conexão com PostgreSQL
-        const date = new ManageDate()
+        const date = new ManageDate();
         const db = new ManagePostgreSQL();
         await db.connect();
         await db.createTable();
@@ -99,7 +99,7 @@ app.get("/", async(req, res) => {
                                 <td>${registro.grupo.length != 0 ? registro.grupo : "Nenhum"}</td>
                                 <td>${date.convertDate(registro.criadoem, "data e hora")}</td>
                                 <td>${date.convertDate(registro.alteradoem, "data e hora")}</td>
-                                <td>${registro.ultprocesso != null ? registro.ultprocesso : "Nanhum"}</td>
+                                <td>${registro.ultprocesso != null ? registro.ultprocesso : "Nenhum"}</td>
                             </tr>
                         `).join('')}
                         </tbody>

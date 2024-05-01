@@ -5,6 +5,7 @@ const ManageDate = require("../validation/date");
 exports.verify_contact = async(
     telefone, nome, status, grupo, idmsg, idcliente, ultproc, tipo
 ) => {
+    // Iniciar serviços de data e banco PostgreSQL
     let status_primeira = 0;
     console.log("Verificando cliente...")
     const manageDate = new ManageDate();

@@ -18,8 +18,7 @@ venom
 // Serviço de atendimento do Chat
 function start(client) {
     client.onMessage(async(message) => {
-        const permitidos = ["5511963262552@c.us"]; 
-        if (permitidos.includes(message.sender.id) && message.isGroupMsg === false) { 
+        if (message.type == "chat" && message.isGroupMsg === false) { 
             // Dados da mensagem
             let idcliente = message.sender.id;
             let idmsg = message.id;
@@ -81,10 +80,6 @@ function start(client) {
                         console.error(error);
                     });
             }
-        }else {
-            console.log("\noutra mensagem");
-            console.log(message.sender.id);
-            console.log(message.body);
         }
     });
 }

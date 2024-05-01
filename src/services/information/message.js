@@ -4,6 +4,7 @@ const ManageDate = require("../validation/date");
 
 
 exports.get_response = async(tipo, processo_completo, n_precatorio, primeira, nome) => {
+    // Iniciar serviços de data e banco MySQL
     const manageDate = new ManageDate();
     const mysql = new ManageMySQL();
     await mysql.getConnection();

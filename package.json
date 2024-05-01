@@ -1,15 +1,15 @@
 {
-  "name": "chatbot-processos",
+  "name": "testezap",
   "version": "1.0.0",
-  "description": "",
+  "description": "serviço de atendimento chatbot de processos",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index.js",
+    "start": "node src\\index.js",
     "server": "node src\\services\\server.js"
   },
   "keywords": [],
-  "author": "lucasharzer",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "date-fns": "^3.6.0",
