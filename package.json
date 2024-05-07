@@ -9,7 +9,7 @@
     "server": "node src\\services\\server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "lucasharzer",
   "license": "ISC",
   "dependencies": {
     "date-fns": "^3.6.0",
