@@ -18,13 +18,18 @@ venom
 // Serviço de atendimento do Chat
 function start(client) {
     client.onMessage(async(message) => {
-        if (message.type == "chat" && message.isGroupMsg === false) { 
+        if (message.isGroupMsg === false) { 
             // Dados da mensagem
             let idcliente = message.sender.id;
             let idmsg = message.id;
             let nome = message.notifyName;
             let telefone = idcliente.replace("@c.us", "");
-            let texto = message.body.toString().trim();
+            let texto;
+            if (message.body != undefined) {
+                texto = message.body.toString().trim();
+            }else {
+                texto = "";
+            }
             let status;
             if (message.isOnline){
                 status = "online";
