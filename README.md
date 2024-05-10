@@ -32,3 +32,19 @@ npm run server
 ```bash
 docker run --name <nome do contêiner> -e POSTGRES_PASSWORD=<senha do banco> -p 5432:5432 -d postgres
 ```
+
+# Resultados
+- ChatBot
+<span>
+    <img src="https://github.com/lucasharzer/Bancos_Dados-Tipos/assets/85804895/784978b7-640a-4633-8020-35f454958846">
+</span>
+<span>
+    <img src="https://github.com/lucasharzer/Bancos_Dados-Tipos/assets/85804895/d15141be-0b89-4cee-8d8f-9e2a93d2241a">
+</span>
+<span>
+    <img src="https://github.com/lucasharzer/Bancos_Dados-Tipos/assets/85804895/724cf267-29e3-44da-8d59-a520ca968245">
+</span>
+- Banco PostgreSQL
+<span>
+    <img src="https://github.com/lucasharzer/Bancos_Dados-Tipos/assets/85804895/23c43361-3c9c-4649-909d-a2a4ceff5b8a">
+</span>
