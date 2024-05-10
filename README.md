@@ -10,3 +10,25 @@ ChatBot de atendimento via WhatsApp feito em node js com consulta de processos d
 - mysql2: biblioteca do node js para conexão e execução de queries em um banco de dados MySQL;
 - pg: biblioteca do node js para conexão e execução de queries em um banco de dados PostgreSQL;
 - venom-bot: biblioteca do node js para comunicação via WhatsApp com diversas funcionalidades.
+
+# Comandos
+- node js | Instalar dependências:
+```bash
+npm install
+```
+- node js | Instalar corretamente o venom-bot:
+```bash
+npm install --save venom-bot
+```
+- node js | Executar chatbot:
+```bash
+npm start
+```
+- node js | Executar web server:
+```bash
+npm run server
+```
+- docker | Executar banco de dados PostgreSQL:
+```bash
+docker run --name <nome do contêiner> -e POSTGRES_PASSWORD=<senha do banco> -p 5432:5432 -d postgres
+```
