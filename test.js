@@ -31,6 +31,18 @@ venom
 
         // Responder
         client.reply("id", "texto", "id mensagem");
+
+        // Enviar imagem
+        client.sendImage("id", "caminho até a imagem", "nome", "rúbrica");
+
+        // Enviar arquivo
+        client.sendImage("id", "caminho até o arquivo", "nome", "rúbrica");
+
+        // Enviar figura como gif
+        client.sendImageAsStickerGif("id", "caminho até a imagem");
+
+        // Enviar vídeo como gif
+        client.sendVideoAsGif("id", "caminho até o vídeo", "nome", "rúbrica");
     })
     .catch((erro) => {
         console.error(erro);
