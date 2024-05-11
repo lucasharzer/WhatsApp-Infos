@@ -44,6 +44,10 @@ docker run --name <nome do contêiner> -e POSTGRES_PASSWORD=<senha do banco> -p 
 <span>
     <img src="https://github.com/lucasharzer/Bancos_Dados-Tipos/assets/85804895/29bb7d75-af52-489c-9613-0c50af369295">
 </span>
+- Web Server
+<span>
+    <img src="https://github.com/lucasharzer/Bancos_Dados-Tipos/assets/85804895/24f650dd-b2d3-4067-8a44-d3e9a93f316f">
+</span>
 - Banco PostgreSQL
 <span>
     <img src="https://github.com/lucasharzer/Bancos_Dados-Tipos/assets/85804895/23c43361-3c9c-4649-909d-a2a4ceff5b8a">
