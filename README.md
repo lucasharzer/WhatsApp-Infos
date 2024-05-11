@@ -10,3 +10,41 @@ ChatBot de atendimento via WhatsApp feito em node js com consulta de processos d
 - mysql2: biblioteca do node js para conexão e execução de queries em um banco de dados MySQL;
 - pg: biblioteca do node js para conexão e execução de queries em um banco de dados PostgreSQL;
 - venom-bot: biblioteca do node js para comunicação via WhatsApp com diversas funcionalidades.
+
+# Comandos
+- node js | Instalar dependências:
+```bash
+npm install
+```
+- node js | Instalar corretamente o venom-bot:
+```bash
+npm install --save venom-bot
+```
+- node js | Executar chatbot:
+```bash
+npm start
+```
+- node js | Executar web server:
+```bash
+npm run server
+```
+- docker | Executar banco de dados PostgreSQL:
+```bash
+docker run --name <nome do contêiner> -e POSTGRES_PASSWORD=<senha do banco> -p 5432:5432 -d postgres
+```
+
+# Resultados
+- ChatBot
+<span>
+    <img src="https://github.com/lucasharzer/Bancos_Dados-Tipos/assets/85804895/784978b7-640a-4633-8020-35f454958846">
+</span>
+<span>
+    <img src="https://github.com/lucasharzer/Bancos_Dados-Tipos/assets/85804895/d15141be-0b89-4cee-8d8f-9e2a93d2241a">
+</span>
+<span>
+    <img src="https://github.com/lucasharzer/Bancos_Dados-Tipos/assets/85804895/29bb7d75-af52-489c-9613-0c50af369295">
+</span>
+- Banco PostgreSQL
+<span>
+    <img src="https://github.com/lucasharzer/Bancos_Dados-Tipos/assets/85804895/23c43361-3c9c-4649-909d-a2a4ceff5b8a">
+</span>
