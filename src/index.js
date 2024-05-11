@@ -18,7 +18,7 @@ venom
 // Serviço de atendimento do Chat
 function start(client) {
     client.onMessage(async(message) => {
-        if (message.isGroupMsg === false) { 
+        if (message.type == "chat" && message.isGroupMsg === false) { 
             // Dados da mensagem
             let idcliente = message.sender.id;
             let idmsg = message.id;
@@ -54,7 +54,6 @@ function start(client) {
             if (tipo.caso != 3) {
                 client.sendText(idcliente, `Processando informações do ${tipo.consulta}...`)
             }
-            client.startTyping(idcliente);
             // Verificar contato
             let ultprocesso = "";
             if (tipo.caso == 1) {
@@ -63,6 +62,8 @@ function start(client) {
             const contato = await verify_contact(
                 telefone, nome, status, grupo, idmsg, idcliente, ultprocesso, tipo.caso
             );
+            // Simular digitação...
+            client.startTyping(idcliente);
             // Mapear resposta
             console.log("Enviando mensagem...")
             let mensagem = await get_response(
