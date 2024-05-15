@@ -1,6 +1,6 @@
 {
   "name": "testezap",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "serviço de atendimento chatbot de processos",
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,7 @@
   "author": "lucasharzer",
   "license": "ISC",
   "dependencies": {
+    "cpf-cnpj-validator": "^1.0.3",
     "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",

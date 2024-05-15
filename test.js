@@ -10,7 +10,7 @@ venom
         client.sendText("id", "texto");
         console.log("Mensagem enviada");
 
-        // // Enviar Contato 
+        // Enviar Contato 
         client.sendContactVcard("id", "contato", "Nome");
         console.log("Contato enviado");
 

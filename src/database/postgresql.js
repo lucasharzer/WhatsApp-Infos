@@ -29,7 +29,7 @@ class ManagePostgreSQL {
                 CriadoEm TIMESTAMP,
                 AlteradoEm TIMESTAMP,
                 IdMensagem VARCHAR(100) NOT NULL,
-                UltProcesso VARCHAR(50)
+                UltConsulta VARCHAR(50)
             )
         `);
     }
@@ -60,9 +60,9 @@ class ManagePostgreSQL {
         );
     }
 
-    async updateLastProcess(ultproc, telefone) {
+    async updateLastQuery(ultproc, telefone) {
         await this.client.query(
-            `UPDATE Contatos SET UltProcesso = $1 WHERE Telefone = $2`,
+            `UPDATE Contatos SET UltConsulta = $1 WHERE Telefone = $2`,
             [ultproc, telefone]
         );
     }
@@ -97,11 +97,11 @@ class ManagePostgreSQL {
         return result.rows;
     }
 
-    async selectProcess(telefone) {
+    async selectQuery(telefone) {
         const result = await this.client.query(
-            `SELECT UltProcesso FROM Contatos WHERE Telefone = $1`, [telefone]
+            `SELECT UltConsulta FROM Contatos WHERE Telefone = $1`, [telefone]
         );
-        return result.rows[0].ultprocesso;
+        return result.rows[0].ultconsulta;
     }
 
     async close() {

@@ -13,5 +13,5 @@ package-lock.json
 # Todos os arquivos de texto
 *.txt
 
-# Pasta de resultados
+# Pasta de screenshots de testes
 resultados

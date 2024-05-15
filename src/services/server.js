@@ -86,7 +86,7 @@ app.get("/", async(req, res) => {
                                 <th>Grupo</th>
                                 <th>Criado em</th>
                                 <th>Alterado em</th>
-                                <th>Último processo</th>
+                                <th>Última consulta</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -99,7 +99,7 @@ app.get("/", async(req, res) => {
                                 <td>${registro.grupo.length != 0 ? registro.grupo : "Nenhum"}</td>
                                 <td>${date.convertDate(registro.criadoem, "data e hora")}</td>
                                 <td>${date.convertDate(registro.alteradoem, "data e hora")}</td>
-                                <td>${registro.ultprocesso != null ? registro.ultprocesso : "Nenhum"}</td>
+                                <td>${registro.ultconsulta != null ? registro.ultconsulta : "Nenhum"}</td>
                             </tr>
                         `).join('')}
                         </tbody>
