@@ -85,5 +85,5 @@ exports.get_response = async(tipo, processo_completo, n_precatorio, primeira, no
         }
     }
 
-    return mensagem.replace(/null/g, "Não informado").replace(/NaN/g, "0,00");
+    return mensagem.replace(/null/g, "Não informado").replace(/NaN/g, "0,00").replace(/Invalid date/g, "Não informado");
 }
